@@ -1,0 +1,59 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>{{ business.name }}</h1>
+        <div id="businessImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div *ngFor="let image of business.images; let i = index" [ngClass]="{'carousel-item': true, 'active': i === 0}">
+              <img [src]="image" class="d-block w-100" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#businessImagesCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#businessImagesCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <p class="mt-4">{{ business.description }}</p>
+        <div>
+          <h3>
+            Calificación:
+            <ng-container *ngFor="let star of getStars(business.rating)">
+              <i class="fas fa-star"></i>
+            </ng-container>
+            <i *ngIf="getHalfStar(business.rating)" class="fas fa-star-half-alt"></i>
+            ({{ business.rating }})
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-8">
+        <h3>Comentarios</h3>
+        <div *ngFor="let comment of comments" class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ comment.user }} -
+              <ng-container *ngFor="let star of getStars(comment.rating)">
+                <i class="fas fa-star"></i>
+              </ng-container>
+              <i *ngIf="getHalfStar(comment.rating)" class="fas fa-star-half-alt"></i>
+              ({{ comment.rating }})
+            </h5>
+            <p class="card-text">{{ comment.text }}</p>
+            <div *ngFor="let response of comment.responses" class="card bg-light p-2">
+              <p class="mb-1"><strong>Respuesta:</strong> {{ response }}</p>
+            </div>
+            <div class="input-group mt-2">
+              <input type="text" [(ngModel)]="comment.newResponse" class="form-control" placeholder="Escribe una respuesta...">
+              <button class="btn btn-primary" (click)="addResponse(comment)">Responder</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

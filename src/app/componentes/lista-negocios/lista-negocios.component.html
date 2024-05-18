@@ -1,0 +1,39 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Mis Negocios</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Imagen</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Editar</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let negocio of negocios">
+          <td>
+            <img src="https://picsum.photos/200" alt="Imagen del Negocio" class="img-fluid">
+          </td>
+          <td>
+            <input [(ngModel)]="negocio.nombre" class="form-control" type="text" readonly>
+          </td>
+          <td>
+            <button class="btn btn-primary" (click)="editarNegocio(negocio)">
+              <i class="fas fa-edit"></i>
+            </button>
+          </td>
+          <td>
+            <span [ngClass]="{'text-success': negocio.activo, 'text-danger': !negocio.activo}">
+              {{ negocio.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="eliminarNegocio(negocio.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

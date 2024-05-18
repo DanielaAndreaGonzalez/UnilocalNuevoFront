@@ -9,8 +9,16 @@
     </div>
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
       <li><a routerLink="" class="nav-link px-2 link-secondary">Inicio</a></li>
-      <li><a routerLink="/gestion-negocios" class="nav-link px-2">Gestión negocios</a></li>
-      <li><a routerLink="" class="nav-link px-2">Favoritos</a></li>
+    @if (isLogged) {
+      @if (isLoggedCliente  )
+      {
+        <li><a routerLink="/lista-recomendados" class="nav-link px-2">Recomendados</a></li>
+        <li><a routerLink="/lista-negocios" class="nav-link px-2">Recomendados</a></li>
+        <li><a routerLink="" class="nav-link px-2">Favoritos</a></li>
+      }@else {
+        <li><a routerLink="/gestion-negocios" class="nav-link px-2">Gestión negocios</a></li>
+      }
+    }
     </ul>
     <div class="col-md-3 text-end">
       @if (!isLogged) {
@@ -46,19 +54,3 @@
   </footer>
 </div>
 
-
-<!--<header>
-  <p>Página inicial de {{title}}</p>
-  <ul>
-    <li><a routerLink="">Inicio</a></li>
-    <li><a routerLink="/login">Login</a></li>
-    <li><a routerLink="/registro">Registro</a></li>
-  </ul>
-</header>
-
-<router-outlet></router-outlet>
-<footer>
-<p>{{footer}}</p>
-</footer>
--->
-<!-- <app-registro-usuario></app-registro-usuario> -->

@@ -11,11 +11,12 @@ import { TokenService } from '../../servicios/token.service';
 import { AuthService } from '../../servicios/auth.service';
 import { Alerta } from '../../dto/alerta';
 import { LoginDTO } from '../../dto/LoginDTO';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,RouterOutlet,RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

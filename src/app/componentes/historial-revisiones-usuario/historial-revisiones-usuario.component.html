@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">HISTORIAL DE REVISIONES</h4>
+          </div>
+          <div class="card-body">
+            <div class="revision-item" *ngFor="let revision of revisiones">
+              <div class="d-flex align-items-center">
+                <div class="avatar">
+                  <i class="fa-solid fa-user-circle fa-2x"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <h5>{{ revision.negocio }}</h5>
+                  <p>{{ revision.comentario }}</p>
+                </div>
+                <div class="status">
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'bg-success': revision.estado === 'APROBADO',
+                      'bg-danger': revision.estado === 'RECHAZADO'
+                    }"
+                  >
+                    {{ revision.estado }}
+                  </span>
+                </div>
+                <div class="date">
+                  <i class="fa-regular fa-calendar"></i>
+                  {{ revision.fecha | date: "dd/MM/yyyy" }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -88,4 +88,12 @@ export class TokenService {
       }
       return "";
     }
+
+    public isLoggedCliente(): boolean {
+      if (this.getRole() == "CLIENTE")
+        {
+          return true;
+        }
+        return false;
+    }
 }

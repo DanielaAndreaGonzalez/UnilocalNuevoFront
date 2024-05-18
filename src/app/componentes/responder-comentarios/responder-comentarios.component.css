@@ -1,0 +1,21 @@
+.carousel-item img {
+    height: 400px;
+    object-fit: cover;
+  }
+  
+  .card {
+    border-radius: 10px;
+  }
+  
+  .card .card-body {
+    position: relative;
+  }
+  
+  .card .input-group {
+    margin-top: 1rem;
+  }
+  
+  .fas.fa-star, .fas.fa-star-half-alt {
+    color: gold;
+  }
+  

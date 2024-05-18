@@ -39,9 +39,9 @@ export class CrearNegocioComponent {
     this.mapaService.crearMapa();
 
     this.mapaService.agregarMarcador().subscribe((marcador) => {
-      this.registroNegocioDTO.ubicacion.latitud = marcador.lat;
-      this.registroNegocioDTO.ubicacion.longitud = marcador.lng;
-      console.log(this.registroNegocioDTO);
+    this.registroNegocioDTO.ubicacion.latitud = marcador.lat;
+    this.registroNegocioDTO.ubicacion.longitud = marcador.lng;
+    console.log(this.registroNegocioDTO);
     });
   }
 

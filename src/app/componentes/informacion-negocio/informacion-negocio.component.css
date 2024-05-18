@@ -1,0 +1,48 @@
+.business-details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.carousel-item img {
+    height: 400px;
+    object-fit: cover;
+  }
+
+.business-rating .star {
+  color: #ccc;
+}
+
+.business-rating .star.filled {
+  color: gold;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.comment {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.add-comment input, .add-comment select, .add-comment textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add-comment button {
+  padding: 10px 20px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}

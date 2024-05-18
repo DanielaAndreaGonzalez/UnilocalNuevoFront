@@ -15,11 +15,13 @@ export class AppComponent {
   isLogged = false;
   footer = '© 2024 Unilocal. Todos los derechos reservados.';
   email: string = "";
+  isLoggedCliente = false;
 
   constructor(private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.isLogged = this.tokenService.isLogged();
+    this.isLoggedCliente = this.tokenService.isLoggedCliente();
     if (this.isLogged) {
     this.email = this.tokenService.getEmail();
     }
@@ -28,6 +30,8 @@ export class AppComponent {
   public logout() {
     this.tokenService.logout();
   }
+
+
 
 
 }

@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0"><i class="fa fa-heart"></i> LISTA DE FAVORITOS</h4>
+              </div>
+
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Detalles</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let favorito of favoritos">
+                  <td>
+                    <img [src]="favorito.imagenURL" alt="{{ favorito.nombre }}" class="img-thumbnail" style="max-width: 100px;">
+                  </td>
+                  <td>
+                    <h5>{{ favorito.nombre }}</h5>
+                    <p>{{ favorito.descripcion }}</p>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <button class="btn btn-primary btn-sm me-2" (click)="verDetalles(favorito)">Ver Detalles</button>
+                      <button class="btn btn-danger btn-sm" (click)="quitarFavorito(favorito)"><i class="fa fa-times"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
