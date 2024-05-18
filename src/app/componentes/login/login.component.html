@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="mb-3">
+              <label for="correo" class="form-label">Email</label>
+              <input type="email" formControlName="correo" class="form-control" id="correo" placeholder="Enter email">
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" formControlName="password" class="form-control" id="password" placeholder="constraseña">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+          </form>
+          <div class="text-center mt-3">
+            <a href="#">I forgot my password</a><br>
+            <a href="#">No account? Create one now!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
