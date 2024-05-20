@@ -22,4 +22,8 @@ export class AuthService {
     return this.http.post<MensajeDTO>(`${this.authURL}/login-cliente`, loginDTO);
   }
 
+  public loginModerador(loginDTO: LoginDTO): Observable<MensajeDTO>{
+    return this.http.post<MensajeDTO>(`${this.authURL}/login-moderador`, loginDTO);
+  }
+
 }

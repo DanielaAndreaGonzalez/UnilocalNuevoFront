@@ -3,14 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { ItemNegocioDTO } from '../../dto/ItemNegocioDTO';
-
-
-
-interface Favorito {
-  nombre: string;
-  descripcion: string;
-  imagenURL: string;
-}
+import { NegocioDTO } from '../../dto/NegocioDTO';
+import { NegociosService } from '../../servicios/negocios.service';
+import { TokenService } from '../../servicios/token.service';
+import { ClienteService } from '../../servicios/cliente.service';
+import { NegocioFavoritoDTO } from '../../dto/NegocioFavoritoDTO';
 
 @Component({
   selector: 'app-lista-favoritos',
@@ -22,40 +19,44 @@ interface Favorito {
 export class ListaFavoritosComponent {
 
   itemNegocioDTO: ItemNegocioDTO;
-  favoritos: Favorito[] = [
-    {
-      nombre: 'Restaurante La Huerta',
-      descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit nec neque auctor aliquam.',
-      imagenURL: 'https://picsum.photos/200/300'
-    },
-    {
-      nombre: 'Hotel Panorama',
-      descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit nec neque auctor aliquam.',
-      imagenURL: 'https://picsum.photos/200/300'
-    },
-    {
-      nombre: 'Spa Relajante',
-      descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit nec neque auctor aliquam.',
-      imagenURL: 'https://picsum.photos/200/300'
-    }
-  ];
+  favoritos: NegocioDTO[] = [];
 
-  constructor(private router: Router){
+  constructor(private router: Router, private negociosService:NegociosService, private tokenService:TokenService, private clienteService:ClienteService){
     this.itemNegocioDTO = new ItemNegocioDTO();
+    clienteService.listarNegociosFavoritos(tokenService.getId()).subscribe({
+      next:(data) => {
+        this.favoritos = data.respuesta;
+        console.log("Negocios recomendados listados: ", data);
+      },
+      error: (error) => {
+        console.log("Error al cargar las ciudades");
+      }
+    })
   }
 
-  verDetalles(favorito: Favorito) {
-    this.router.navigate(["/informacion-negocio",this.itemNegocioDTO.codigoNegocio]).then(() => {
+  verDetalles(favorito: NegocioDTO) {
+    this.router.navigate(["/informacion-negocio",favorito.codigo]).then(() => {
       window.location.reload();
     });
     console.log(`Ver detalles de ${favorito.nombre}`);
   }
 
-  quitarFavorito(favorito: Favorito) {
+  quitarFavorito(favorito: NegocioDTO) {
     // Lógica para quitar el favorito seleccionado
-    const index = this.favoritos.indexOf(favorito);
-    if (index !== -1) {
-      this.favoritos.splice(index, 1);
-    }
+    const negocioFavoritoDTO:NegocioFavoritoDTO = new NegocioFavoritoDTO(this.tokenService.getId(),
+    favorito.codigo);
+    this.clienteService.quitarFavoritos(negocioFavoritoDTO).subscribe({
+      next: (data) => {
+        console.log("Sequitó como favorito.. correctamente");
+        const index = this.favoritos.indexOf(favorito);
+        if (index !== -1) {
+          this.favoritos.splice(index, 1);
+        }
+      },
+      error: (error) => {
+        console.log("Error al registrar el favorito");
+      }
+    });
+
   }
 }

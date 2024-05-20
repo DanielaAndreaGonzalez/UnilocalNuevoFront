@@ -16,7 +16,7 @@
           <tbody class="table-group-divider">
             <tr *ngFor="let negocio of negocios">
               <td>
-                <img [src]="negocio.imagenDestacada" alt="{{ negocio.nombre }}" class="img-fluid" style="max-width: 100px;">
+                <img src="{{negocio.imagenes[0]}}" alt="{{ negocio.nombre }}" class="img-fluid" style="max-width: 100px;">
               </td>
               <td>{{ negocio.nombre }}</td>
               <td>{{ negocio.descripcion }}</td>

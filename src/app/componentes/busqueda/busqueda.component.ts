@@ -23,14 +23,23 @@ export class BusquedaComponent {
     this.textoBusqueda = "";
 
     this.route.params.subscribe(params => {
-    this.textoBusqueda = params['texto'];
-    //this.resultados = this.negociosService.buscar(this.textoBusqueda);
+      this.textoBusqueda = params['texto'];
+      this.negociosService.obtenerNegocioPorNombre(this.textoBusqueda).subscribe({
+        next:(data) => {
+          this.resultados = data.respuesta;
+          console.log("Negocios recomendados listados: ", data);
+        },
+        error: (error) => {
+          console.log("Error al cargar las ciudades");
+        }
+      });
     });
     }
 
     ngOnInit(): void {
-      this.mapaService.crearMapa();
-      this.mapaService.pintarMarcadores(this.resultados);
+      this.mapaService.crearMapa([-75.671289, 4.537435], 12).subscribe(() => {
+        this.mapaService.pintarMarcadores(this.resultados);
+      });;
     }
 
 }

@@ -13,6 +13,7 @@ import { ActualizacionNegocioDTO } from '../dto/ActualizacionNegocioDTO';
 export class NegociosService {
 
   private negociosURL = "http://localhost:9090/api/negocio";
+  private clienteURL = "http://localhost:9090/api/clientes";
 
 
 
@@ -36,6 +37,18 @@ export class NegociosService {
 
   public listarNegociosPropietario(codigoCliente: string): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.negociosURL}/listar-negocios-usuario/${codigoCliente}`);
+  }
+
+  public obtenerCalificacionPromedio(codigoNegocio: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.clienteURL}/calcular-promedio-calificaciones/${codigoNegocio}`);
+  }
+
+  public obtenerNegocioPorNombre(nombreNegocio: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.negociosURL}/obtener-por-nombre/${nombreNegocio}`);
+  }
+
+  public obtenerNegocios(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.negociosURL}/listar-todos`);
   }
 
 }

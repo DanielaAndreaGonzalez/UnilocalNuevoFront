@@ -18,7 +18,7 @@ export class MapaService {
     this.marcadores = [];
   }
 
-  public crearMapa() {
+  /*public crearMapa() {
       this.mapa = new mapboxgl.Map({
         container: 'mapa',
         style: this.style,
@@ -32,6 +32,26 @@ export class MapaService {
           trackUserLocation: true,
         })
       );
+  }*/
+
+  public crearMapa(centro: [number, number] = [-75.6759880117609, 4.5359205075877975], zoom: number = 4.5): Observable<void> {
+    return new Observable<void>((observer) => {
+      this.mapa = new mapboxgl.Map({
+        container: 'mapa',
+        style: this.style,
+        center: centro,
+        zoom: zoom,
+      });
+      this.mapa.on('load', () => {
+        this.mapa.addControl(new mapboxgl.NavigationControl());
+        this.mapa.addControl(new mapboxgl.GeolocateControl({
+          positionOptions: { enableHighAccuracy: true },
+          trackUserLocation: true,
+        }));
+        observer.next();
+        observer.complete();
+      });
+    });
   }
 
   public agregarMarcador(): Observable<any> {

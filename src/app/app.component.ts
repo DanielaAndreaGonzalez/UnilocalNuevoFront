@@ -23,7 +23,7 @@ export class AppComponent {
     this.isLogged = this.tokenService.isLogged();
     this.isLoggedCliente = this.tokenService.isLoggedCliente();
     if (this.isLogged) {
-    this.email = this.tokenService.getEmail();
+    this.email = this.tokenService.getName();
     }
   }
 

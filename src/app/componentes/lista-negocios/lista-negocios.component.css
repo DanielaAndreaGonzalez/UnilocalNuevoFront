@@ -2,25 +2,24 @@
 .container {
     max-width: 800px;
   }
-  
+
   .table {
     width: 100%;
   }
-  
+
   img {
     max-width:150px;
     border-radius: 10px;
   }
-  
+
   button i {
     margin-right: 5px;
   }
-  
+
   .text-success {
     color: green;
   }
-  
+
   .text-danger {
-    color: red;
+    color: black;
   }
-  

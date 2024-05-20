@@ -16,8 +16,28 @@
   color: #ccc;
 }
 
+.star-no-favorite{
+  cursor: pointer;
+  font-size: 50px !important;
+  color: #ccc;
+}
+
+.star-favorite{
+  cursor: pointer;
+  font-size: 55px !important;
+  color: gold;
+}
+
 .business-rating .star.filled {
   color: gold;
+}
+
+.star.filled {
+  color: gold;
+}
+
+.star {
+  color: #ccc;
 }
 
 .comments-section {
@@ -25,8 +45,11 @@
 }
 
 .comment {
-  border-top: 1px solid #ddd;
-  padding-top: 10px;
+  border: 1px solid #ddd;
+  background-color: #b2d5fa4b;
+  border-radius: 7px;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .add-comment input, .add-comment select, .add-comment textarea {

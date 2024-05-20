@@ -25,22 +25,44 @@
           <div id="mapa"></div>
         </div>
       </div>
-      <div class="mb-3 row">
-        <label class="col-sm-2 col-form-label">Imágenes: </label>
-        <div class="col-sm-10">
-          <input class="form-control" type="file" name="imagenes" (change)="onFileChange($event)" multiple required />
-
+      <div class="mb-3 row border p-2">
+        <div class="col">
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Imágenes: </label>
+            <div class="col-sm-10 contenedor-imagenes">
+               @for (imagen of actualizacionNegocioDTO.imagenes; track $index) {
+                <div class="contenedor-imagen">
+                  <img src="{{imagen}}" alt="{{ actualizacionNegocioDTO.nombre }}" class="img-thumbnail" style="max-width: 100px;">
+                  <button type="button" class="btn btn-outline-danger btn-sm ms-1" (click)="eliminarImagen(imagen)"><i class="fas fa-trash"></i></button>
+                </div>
+               }
+            </div>
+          </div>
+          <div class="row mt-3">
+            <label class="col-sm-2 col-form-label">Nueva Imágenes: </label>
+            <div class="col-sm-8">
+              <input class="form-control" type="file" name="imagenes" (change)="onFileChange($event)" multiple required />
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" [disabled]="archivos == null" class="btn btn-outline-success btn-sm"
+              (click)="subirImagen()">
+              <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir</button>
+            </div>
+          </div>
         </div>
       </div>
+
+
+
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Tipo: </label>
         <div class="col-sm-10">
           <select name="tipo" required class="form-select" [(ngModel)]="actualizacionNegocioDTO.tipoNegocio">
 
-            <option value="" selected>Seleccione un tipo para el negocio</option>
-            <!-- Completar (se puede basar en cómo se cargan las ciudades del
-
-    formulario de registro de clientes) -->
+            <option value="" selected disabled>Seleccione un tipo para el negocio</option>
+            @for (item of tiposNegocio; track $index) {
+            <option [value]="item">{{item}}</option>
+            }
 
           </select>
         </div>
@@ -48,13 +70,12 @@
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Horarios: </label>
         <div class="col-sm-8">
-          @for (item of horarios; track $index) {
+          @for (item of actualizacionNegocioDTO.horarios; track $index) {
           <div class="row mb-2 ">
             <div class="col">
-              <select class="form-select " name="dia-{{$index}}" [(ngModel)]="item.dia"
-                required >
+              <select class="form-select " name="dia-{{$index}}" [(ngModel)]="item.dia" required>
                 <option value="" selected>Seleccione un dia</option>
-                  @for (item of dias; track $index) { <option [value]="item">{{item}}</option>}
+                @for (item of dias; track $index) { <option [value]="item">{{item}}</option>}
               </select>
             </div>
             <div class="col">
@@ -84,8 +105,8 @@
           @for (item of telefonos; track $index) {
           <div class="row mb-2 ">
             <div class="col">
-              <input class="form-control" placeholder="Teléfono" type="text" name="telefono-{{$index}}" [(ngModel)]="item.numero"
-                required />
+              <input class="form-control" placeholder="Teléfono" type="text" name="telefono-{{$index}}"
+                [(ngModel)]="item.numero" required />
             </div>
           </div>
           }
@@ -103,4 +124,3 @@
     </form>
   </div>
 </div>
-

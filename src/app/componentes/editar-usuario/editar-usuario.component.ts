@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PublicoService } from '../../servicios/publico.service';
-import { AuthService } from '../../servicios/auth.service';
-import { ImagenService } from '../../servicios/imagen.service';
+import { NegocioDTO } from '../../dto/NegocioDTO';
+import { ActivatedRoute } from '@angular/router';
+import { NegociosService } from '../../servicios/negocios.service';
+import { ClienteService } from '../../servicios/cliente.service';
+import { TokenService } from '../../servicios/token.service';
 
 interface Usuario {
   nombre: string;
@@ -17,7 +20,7 @@ interface Usuario {
   templateUrl: './editar-usuario.component.html',
   standalone: true,
   imports: [FormsModule],
-  styleUrls: ['./editar-usuario.component.css']
+  styleUrls: ['./editar-usuario.component.css'],
 })
 export class EditarUsuarioComponent {
   selectedImage: any = null;
@@ -26,38 +29,45 @@ export class EditarUsuarioComponent {
     nickname: 'pedrito',
     correo: 'perezpedro1999@gmail.com',
     ciudad: 'Nueva ciudad',
-    fotoURL: 'https://via.placeholder.com/150' // Reemplaza con la URL de tu imagen de perfil
+    fotoURL: 'https://via.placeholder.com/150', // Reemplaza con la URL de tu imagen de perfil
   };
 
-  ciudades : string[];
+  ciudades: string[];
 
-
-  constructor(private publicoService: PublicoService,private authService: AuthService,private imagenService: ImagenService) {
+  constructor(
+    private publicoService: PublicoService,
+    private route: ActivatedRoute,
+    private negociosService: NegociosService,
+    private tokenService: TokenService,
+    private clienteService: ClienteService
+  ) {
     this.ciudades = [];
     this.cargarCiudades();
   }
 
-private cargarCiudades(){
-  this.publicoService.listarCiudades().subscribe({
-    next:(data) => {
-      this.ciudades = data.respuesta;
-    },
-    error: (error) => {
-      console.log("Error al cargar las ciudades");
-    }
-  })
-}
+  ngOnInit() {}
+
+  private cargarCiudades() {
+    this.publicoService.listarCiudades().subscribe({
+      next: (data) => {
+        this.ciudades = data.respuesta;
+      },
+      error: (error) => {
+        console.log('Error al cargar las ciudades');
+      },
+    });
+  }
 
   onFileSelected(event: any) {
-  if (event.target.files && event.target.files[0]) {
-    const file = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
 
-    // Aquí puedes manejar el archivo seleccionado.
-    // Por ejemplo, puedes leerlo como una URL de datos y mostrarlo en la página:
-    const reader = new FileReader();
-    reader.onload = e => this.selectedImage = reader.result;
+      // Aquí puedes manejar el archivo seleccionado.
+      // Por ejemplo, puedes leerlo como una URL de datos y mostrarlo en la página:
+      const reader = new FileReader();
+      reader.onload = (e) => (this.selectedImage = reader.result);
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    }
   }
-}
 }

@@ -2,14 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
-interface Negocio {
-  nombre: string;
-  tipoNegocio: string;
-  imagenDestacada: string;
-  calificacionPromedio: number;
-  descripcion: string;
-}
+import { NegociosService } from '../../servicios/negocios.service';
+import { TokenService } from '../../servicios/token.service';
+import { NegocioDTO } from '../../dto/NegocioDTO';
 
 @Component({
   selector: 'app-recomendados',
@@ -19,38 +14,24 @@ interface Negocio {
   styleUrls: ['./lista-recomendados.component.scss']
 })
 export class ListaRecomendadosComponent {
-  negocios: Negocio[] = [
-    {
-      nombre: 'Restaurante La Huerta',
-      tipoNegocio: 'Restaurante',
-      imagenDestacada: 'https://picsum.photos/100',
-      calificacionPromedio: 4.8,
-      descripcion: 'Deliciosa comida casera preparada con ingredientes frescos y locales.'
-    },
-    {
-      nombre: 'Boutique Chic',
-      tipoNegocio: 'Ropa y Accesorios',
-      imagenDestacada: 'https://picsum.photos/100',
-      calificacionPromedio: 4.2,
-      descripcion: 'Prendas de moda y accesorios de alta calidad al mejor precio.'
-    },
-    {
-      nombre: 'Spa Relajante',
-      tipoNegocio: 'Spa y Bienestar',
-      imagenDestacada: 'https://picsum.photos/100',
-      calificacionPromedio: 4.9,
-      descripcion: 'Experiencia de relajación y bienestar con tratamientos personalizados.'
-    }
-  ];
+  negocios: NegocioDTO[] = [];
 
-  constructor(private router: Router)
+  constructor(private router: Router, private negociosService:NegociosService, private tokenService:TokenService)
   {
-
+    negociosService.listarNegociosPropietario(tokenService.getId()).subscribe({
+      next:(data) => {
+        this.negocios = data.respuesta;
+        console.log("Negocios recomendados listados: ", data);
+      },
+      error: (error) => {
+        console.log("Error al cargar las ciudades");
+      }
+    })
   }
 
-  verNegocio(negocio: Negocio): void {
+  verNegocio(negocio: NegocioDTO): void {
     // Aquí puedes agregar la lógica para ver el detalle del negocio
-    this.router.navigate(["/informacion-negocio"]).then(() => {
+    this.router.navigate(["/informacion-negocio", negocio.codigo]).then(() => {
       window.location.reload();
     });
   }

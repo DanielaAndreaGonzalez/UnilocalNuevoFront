@@ -17,14 +17,14 @@ export class TokenService {
   }
 
   public setToken(token: string) {
-    console.log("Ingreso a set toke");
+    //console.log("Ingreso a set toke");
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
 
   }
   public getToken(): string | null {
     if (this.isBrowser){
-    console.log("ingresó a get token");
+    //console.log("ingresó a get token");
     return window.sessionStorage.getItem(TOKEN_KEY);
     }
     else{
@@ -76,6 +76,24 @@ export class TokenService {
       if (token) {
       const values = this.decodePayload(token);
       return values.sub;
+      }
+      return "";
+    }
+
+    public getName(): string {
+      const token = this.getToken();
+      if (token) {
+      const values = this.decodePayload(token);
+      return values.nombre;
+      }
+      return "";
+    }
+
+    public getId(): string {
+      const token = this.getToken();
+      if (token) {
+      const values = this.decodePayload(token);
+      return values.id;
       }
       return "";
     }

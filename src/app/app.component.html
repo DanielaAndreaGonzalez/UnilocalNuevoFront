@@ -1,42 +1,44 @@
-<div class="container">
-  <header class="d-flex flex-wrap align-items-center justify-content-center
-  justify-content-md-between py-3">
-    <div class="col-md-3 mb-2 mb-md-0">
-      <a routerLink="" class="d-inline-flex link-body-emphasis text-decoration-none">
-        <i class="fa-solid fa-map-location-dot fs-3"></i>
-        <span class="fs-4 ms-3 me-3">{{title}}</span>
-      </a>
-    </div>
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a routerLink="" class="nav-link px-2 link-secondary">Inicio</a></li>
-    @if (isLogged) {
-      @if (isLoggedCliente  )
-      {
-        <li><a routerLink="/lista-recomendados" class="nav-link px-2">Recomendados</a></li>
-        <li><a routerLink="/lista-negocios" class="nav-link px-2">Recomendados</a></li>
-        <li><a routerLink="" class="nav-link px-2">Favoritos</a></li>
-      }@else {
-        <li><a routerLink="/gestion-negocios" class="nav-link px-2">Gestión negocios</a></li>
-      }
-    }
-    </ul>
-    <div class="col-md-3 text-end">
-      @if (!isLogged) {
-      <button type="button" routerLink="/login" class="btn btn-outline-primary me-2">Login
-      </button>
-      <button type="button" routerLink="/registro" class="btn btn-primary">Registro</button>
-      }@else {
-      <label class="me-3" >Hola {{email}}</label>
-      <button type="button" (click)="logout()" class="btn btn-primary ">Logout</button>
-      }
-    </div>
-  </header>
-</div>
-<div class="seccion-pagina p-4">
+<div class="container-fluid navbar-custom navbar-enhanced">
   <div class="container">
-    <router-outlet></router-outlet>
+    <header class="d-flex flex-wrap align-items-center justify-content-center
+    justify-content-md-between py-3">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <a routerLink="" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <img src="../assets/LogoUnilocal.png" alt="UniLoCal" class="logo-img">
+            <h4 class="title-class">{{title}}</h4>
+        </a>
+      </div>
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a routerLink="" class="nav-link px-2 link-secondary">Inicio</a></li>
+        @if (isLogged) {
+          @if (isLoggedCliente) {
+            <li><a routerLink="/lista-recomendados" class="nav-link px-2">Recomendados</a></li>
+            <li><a routerLink="/lista-negocios" class="nav-link px-2">Mis negocios</a></li>
+            <li><a routerLink="/lista-favoritos" class="nav-link px-2">Favoritos</a></li>
+          } @else {
+            <li><a routerLink="/gestion-negocios" class="nav-link px-2">Gestión negocios</a></li>
+          }
+        }
+      </ul>
+      <div class="col-md-3 text-end">
+        @if (!isLogged) {
+          <button type="button" routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
+          <button type="button" routerLink="/registro" class="btn btn-primary">Registro</button>
+        } @else {
+          <label class="me-3">{{email}}</label>
+          <button type="button" (click)="logout()" class="btn btn-link">Logout</button>
+        }
+      </div>
+    </header>
   </div>
 </div>
+
+
+
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>
+
 <div class="container">
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4
     border-top">

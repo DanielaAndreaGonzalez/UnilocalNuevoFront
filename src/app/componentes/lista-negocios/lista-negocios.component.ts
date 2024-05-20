@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NegocioDTO } from '../../dto/NegocioDTO';
+import { NegociosService } from '../../servicios/negocios.service';
+import { TokenService } from '../../servicios/token.service';
 
 @Component({
   selector: 'app-lista-negocios',
@@ -11,28 +14,48 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./lista-negocios.component.css']
 })
 export class ListaNegociosComponent implements OnInit {
-  negocios: any[] = [
-    { id: 1, nombre: 'Hotel Panorama', activo: true },
-    { id: 2, nombre: 'Restaurante La Fogata', activo: true },
-    { id: 3, nombre: 'Hotel Café Real', activo: false }
-  ];
+  negocios: NegocioDTO[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private negociosService:NegociosService, private tokenService:TokenService){}
 
   ngOnInit(): void {
     // No se necesita cargar datos de un servicio
+    this.getNegocios();
   }
 
-  editarNegocio(negocio: any): void {
-    this.router.navigate(['/editar-negocio', negocio.id]);
+  editarNegocio(negocio: NegocioDTO): void {
+    this.router.navigate(['/editar-negocio', negocio.codigo]);
 
     /*this.router.navigate(["/"]).then(() => {
       window.location.reload();
     });*/
   }
 
-  eliminarNegocio(id: number): void {
-    this.negocios = this.negocios.filter(negocio => negocio.id !== id);
-    console.log('Negocio eliminado', id);
+  nuevoNegocio(){
+    this.router.navigate(['/crear-negocio']);
+
+  }
+
+  eliminarNegocio(id: string): void {
+    this.negociosService.eliminar(id).subscribe({
+      next:(data) => {
+        console.log("Negocio eliminado", data);
+      },
+      error: (error) => {
+        console.log("Error al eliminar el negocio");
+      }
+    })
+  }
+
+  getNegocios(){
+    this.negociosService.listarNegociosPropietario(this.tokenService.getId()).subscribe({
+      next:(data) => {
+        this.negocios = data.respuesta;
+        console.log("Negocios recomendados listados: ", data);
+      },
+      error: (error) => {
+        console.log("Error al cargar las ciudades");
+      }
+    })
   }
 }

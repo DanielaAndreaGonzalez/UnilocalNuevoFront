@@ -1,0 +1,56 @@
+/* Estilos para el Navbar con degradado, asegurando especificidad */
+.navbar-enhanced {
+  background: linear-gradient(to right, #710d8f 0%, #7c1696 100%);
+  color: white;
+}
+
+.navbar-enhanced .nav-link {
+  color: white !important;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-enhanced .nav-link:hover, .navbar-enhanced .nav-link:focus {
+  color: #cff4fc !important;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar-enhanced .btn-outline-primary {
+  border-color: #cff4fc;
+  color: #cff4fc;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-enhanced .btn-outline-primary:hover, .navbar-enhanced .btn-outline-primary:focus {
+  background-color: #cff4fc;
+  color: #6a11cb;
+}
+
+.navbar-enhanced .btn-primary:hover, .navbar-enhanced .btn-primary:focus {
+  background-color: #cff4fc;
+  color: #6a11cb;
+}
+
+.brand-link .fa-map-location-dot {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+button, span{
+  color: white;
+}
+
+.logo-img {
+  width: 50px; /* Ajusta el tamaño según necesites */
+  height: 50px; /* Asegura que la imagen sea cuadrada para que el borde redondo se aplique uniformemente */
+  border-radius: 50%; /* Esto hará que la imagen sea completamente redonda */
+  object-fit: cover; /* Asegura que la imagen cubra completamente el área sin distorsionarse */
+  box-shadow: 0 5px 9px rgba(238, 235, 235, 0.904); /* Opcional: añade una sombra suave para un efecto elevado */
+}
+
+.title-class{
+  color: white;
+  justify-content: center;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+

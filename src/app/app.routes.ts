@@ -21,11 +21,13 @@ import { ResponderComentariosComponent } from './componentes/responder-comentari
 import { HistorialRevisionesUsaComponent } from './componentes/historial-revisiones-usuario/historial-revisiones-usuario.component';
 import { ListaPendientesModComponent } from './componentes/lista-pendientes-moderador/lista-pendientes-moderador.component';
 import { HistorialRevisionesModComponent } from './componentes/historial-revisiones-moderador/historial-revisiones-moderador.component';
+import { LoginModeradorComponent } from './componentes/login-moderador/login-moderador.component';
 
 
 export const routes: Routes = [
     { path: '',component: InicioComponent},
     {path: 'login', component: LoginComponent,canActivate: [LoginGuard]},
+    {path: 'login-moderador', component: LoginModeradorComponent,canActivate: [LoginGuard]},
     {path: 'registro', component: RegistroUsuarioComponent},
     {path: 'recuperar-cuenta', component: RecuperarCuentaComponent},
     {path: 'cambiar-contrasena', component: CambiarContrasenaComponent},
@@ -40,7 +42,7 @@ export const routes: Routes = [
     {path: 'lista-pendientes', component: ListaPendientesModComponent},
     {path: 'historial-revisiones-moderador', component: HistorialRevisionesModComponent},
     {path: 'editar-negocio/:idNegocio', component: EditarNegocioComponent},
-    { path: "crear-negocio", component: CrearNegocioComponent,canActivate: [LoginGuard] },
+    //{ path: "crear-negocio", component: CrearNegocioComponent,canActivate: [LoginGuard] },
     { path: "detalle-negocio/:codigo", component: DetalleNegocioComponent},
     { path: "busqueda/:texto", component: BusquedaComponent},
     { path: "gestion-negocios", component: GestionNegociosComponent, canActivate: [RolesGuard],
