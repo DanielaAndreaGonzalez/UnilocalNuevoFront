@@ -39,17 +39,17 @@ export const routes: Routes = [
     {path: 'lista-negocios', component: ListaNegociosComponent},
     {path: 'responder-comentarios', component: ResponderComentariosComponent},
     {path: 'historial-revisiones-usuario', component: HistorialRevisionesUsaComponent},
-    {path: 'lista-pendientes', component: ListaPendientesModComponent},
-    {path: 'historial-revisiones-moderador', component: HistorialRevisionesModComponent},
+    { path: "crear-negocio", component: CrearNegocioComponent, canActivate: [RolesGuard], data: {
+      expectedRole: ["CLIENTE"] } },
     {path: 'editar-negocio/:idNegocio', component: EditarNegocioComponent},
-    //{ path: "crear-negocio", component: CrearNegocioComponent,canActivate: [LoginGuard] },
     { path: "detalle-negocio/:codigo", component: DetalleNegocioComponent},
     { path: "busqueda/:texto", component: BusquedaComponent},
+    {path: 'historial-revisiones-moderador', component: HistorialRevisionesModComponent, canActivate: [RolesGuard],
+    data: { expectedRole: ["MODERADOR"] } },
     { path: "gestion-negocios", component: GestionNegociosComponent, canActivate: [RolesGuard],
-    data: { expectedRole: ["CLIENTE"] } },
-    { path: "crear-negocio", component: CrearNegocioComponent, canActivate: [RolesGuard], data: {
-    expectedRole: ["CLIENTE"] } },
-
+    data: { expectedRole: ["MODERADOR"] } },
+    {path: 'lista-pendientes', component: ListaPendientesModComponent, canActivate: [RolesGuard],
+    data: { expectedRole: ["MODERADOR"] }},
     //{ path: "gestion-negocios", component: GestionNegociosComponent, canActivate:[RolesGuard], data: { expectedRole: ["MODERADOR"] } },
     {path: "**", pathMatch: "full", redirectTo: ""}
 ];

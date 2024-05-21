@@ -12,6 +12,7 @@ import { AuthService } from '../../servicios/auth.service';
 import { Alerta } from '../../dto/alerta';
 import { LoginDTO } from '../../dto/LoginDTO';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { AlertaComponent } from '../alerta/alerta.component';
 
 @Component({
   selector: 'app-login',

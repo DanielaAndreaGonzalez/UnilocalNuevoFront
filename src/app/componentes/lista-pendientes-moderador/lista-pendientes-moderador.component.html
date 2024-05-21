@@ -1,11 +1,11 @@
 <div class="container mt-5">
-    <div class="card-header bg-dark text-white">
+    <div class="card-header">
         <h4 class="mb-0"> LISTA DE PENDIENTES</h4>
       </div>
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Usuario</th>
+          <th>Nombre</th>
           <th>Imagen de Negocio</th>
           <th>Descripción</th>
           <th>Comentario</th>
@@ -13,26 +13,26 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let business of businesses">
+        <tr *ngFor="let negocio of lugaresPendientesAutorizar">
           <td>
-            <div style="display: flex; align-items: center;">
+            <!--<div style="display: flex; align-items: center;">
               <img src="https://picsum.photos/200/300" alt="Imagen de usuario" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
-              <div>{{ business.name }}</div>
-            </div>
+              <div>{{ negocio.codigoCliente }}</div>
+            </div>-->
+            {{ negocio.nombre }}
           </td>
           <td>
-            <img src="https://picsum.photos/200/300" alt="Imagen de negocio" style="width: 100px; height: 100px;">
+            <img src="{{negocio.imagenes[0]}}" alt="Imagen de negocio" style="width: 100px; height: 100px;">
           </td>
-          <td>{{ business.description }}</td>
+          <td>{{ negocio.descripcion }}</td>
           <td>
-            <textarea [(ngModel)]="business.comment" class="form-control" placeholder="Comentario"></textarea>
+            <textarea [(ngModel)]="negocio.comentarioAutororizacion" class="form-control" placeholder="Comentario"></textarea>
           </td>
           <td>
-            <button (click)="approve(business.id, business.comment)" class="btn btn-success mt-2">Autorizar</button>
-            <button (click)="reject(business.id, business.comment)" class="btn btn-danger mt-2">Rechazar</button>
+            <button (click)="aprobar(negocio)" class="btn btn-success mt-2">Autorizar</button>
+            <button (click)="rechazar(negocio)" class="btn btn-danger mt-2">Rechazar</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  

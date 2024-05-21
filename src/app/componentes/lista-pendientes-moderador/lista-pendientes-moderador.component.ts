@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NegocioDTO } from '../../dto/NegocioDTO';
+import { ModeradorService } from '../../servicios/moderador.service';
+import { ClienteService } from '../../servicios/cliente.service';
+import { AutorizarNegocioDTO } from '../../dto/AutorizarNegocioDTO';
+import { TokenService } from '../../servicios/token.service';
 
 @Component({
   selector: 'app-lista-pendientes-moderador',
@@ -10,25 +15,63 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./lista-pendientes-moderador.component.css']
 })
 export class ListaPendientesModComponent implements OnInit {
-  businesses = [
-    { id: 1, name: 'Luisa', description: 'HOTEL CAMPRESTRE \nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit nec neque auctor aliquam.', comment: '' },
-    { id: 2, name: 'Daniela', description: 'RESTAURANTE \n.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit nec neque auctor aliquam.', comment: '' },
-    { id: 3, name: 'Leidy', description: 'CAFE \tLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit nec neque auctor aliquam.', comment: '' }
-  ];
+  lugaresPendientesAutorizar: NegocioDTO [] = [];
+  comentario :string = '';
 
-  constructor() {}
+  constructor(private moderadorService:ModeradorService, private tokenService:TokenService) {}
 
-  ngOnInit(): void {}
-
-  approve(id: number, comment: string) {
-    // Aquí normalmente se enviaría la solicitud HTTP, pero como no estamos usando servicios HTTP, lo omitimos.
-    console.log(`Aprobación del negocio con ID ${id} y comentario: ${comment}`);
-    alert('Negocio aprobado');
+  ngOnInit(): void {
+    this.genociosPendientePorAprobar();
   }
 
-  reject(id: number, comment: string) {
-    // Aquí normalmente se enviaría la solicitud HTTP, pero como no estamos usando servicios HTTP, lo omitimos.
-    console.log(`Rechazo del negocio con ID ${id} y comentario: ${comment}`);
-    alert('Negocio rechazado');
+  genociosPendientePorAprobar(){
+    this.moderadorService.obtenerLugaresPendientesAutorizar().subscribe({
+      next:(data) => {
+        this.lugaresPendientesAutorizar = data.respuesta;
+        //getInfoCliente(this.)
+        console.log("Negocios pendientes de autorizar: ", data);
+      },
+      error: (error) => {
+        console.log("Error al cargar los negocios pendientes por autorizar");
+      }
+    })
+  }
+  aprobar(negocioDto:NegocioDTO) {
+    const autorizarNegocioDTO:AutorizarNegocioDTO = new AutorizarNegocioDTO(
+      negocioDto.codigo,
+      negocioDto.codigoCliente,
+      negocioDto.comentarioAutororizacion,
+      this.tokenService.getId(),
+      new Date()
+    );
+
+    this.moderadorService.autorizarNegocio(autorizarNegocioDTO).subscribe({
+      next:(data) => {
+        console.log("Negocios pendientes de autorizar: ", data);
+      },
+      error: (error) => {
+        console.log("Error al cargar los negocios pendientes por autorizar");
+      }
+    })
+  }
+
+  rechazar(negocioDto:NegocioDTO) {
+    const autorizarNegocioDTO:AutorizarNegocioDTO = new AutorizarNegocioDTO(
+      negocioDto.codigo,
+      negocioDto.codigoCliente,
+      negocioDto.comentarioAutororizacion,
+      this.tokenService.getId(),
+      new Date()
+    );
+
+    this.moderadorService.rechazarNegocio(autorizarNegocioDTO).subscribe({
+      next:(data) => {
+        this.genociosPendientePorAprobar();
+        console.log("Negocios pendientes de autorizar: ", data);
+      },
+      error: (error) => {
+        console.log("Error al cargar los negocios pendientes por autorizar");
+      }
+    })
   }
 }

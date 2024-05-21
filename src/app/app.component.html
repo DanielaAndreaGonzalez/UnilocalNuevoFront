@@ -9,14 +9,15 @@
         </a>
       </div>
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a routerLink="" class="nav-link px-2 link-secondary">Inicio</a></li>
         @if (isLogged) {
           @if (isLoggedCliente) {
+            <li><a routerLink="" class="nav-link px-2 link-secondary">Inicio</a></li>
             <li><a routerLink="/lista-recomendados" class="nav-link px-2">Recomendados</a></li>
             <li><a routerLink="/lista-negocios" class="nav-link px-2">Mis negocios</a></li>
             <li><a routerLink="/lista-favoritos" class="nav-link px-2">Favoritos</a></li>
           } @else {
-            <li><a routerLink="/gestion-negocios" class="nav-link px-2">Gestión negocios</a></li>
+            <li><a routerLink="/lista-pendientes" class="nav-link px-2">Mis Autorizaciones</a></li>
+            <li><a routerLink="/historial-revisiones-moderador" class="nav-link px-2">Mi Historial</a></li>
           }
         }
       </ul>

@@ -14,6 +14,7 @@ export class NegocioDTO {
       public estado: string,
       public ubicacion: Ubicacion,
       public tipoNegocio: string,
-      public codigoCliente: string
+      public codigoCliente: string,
+      public comentarioAutororizacion?:string
   ) {}
 }
