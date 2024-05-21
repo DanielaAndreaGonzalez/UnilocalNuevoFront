@@ -1,58 +1,114 @@
 .business-details {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header-section h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+.header-section h1 .star-no-favorite {
+  margin-left: 10px;
+}
+
+.carousel-section {
+  margin-bottom: 20px;
 }
 
 .carousel-item img {
-    height: 400px;
-    object-fit: cover;
-  }
+  height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.business-rating {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 .business-rating .star {
   color: #ccc;
 }
 
-.star-no-favorite{
+.star-no-favorite {
   cursor: pointer;
-  font-size: 50px !important;
+  font-size: 30px;
   color: #ccc;
+  transition: color 0.3s, transform 0.3s;
 }
 
-.star-favorite{
+.star-no-favorite:hover {
+  color: gold;
+  transform: scale(1.1);
+}
+
+.star-favorite {
   cursor: pointer;
-  font-size: 55px !important;
+  font-size: 30px;
   color: gold;
+  transition: transform 0.3s;
 }
 
-.business-rating .star.filled {
-  color: gold;
-}
-
+.business-rating .star.filled,
 .star.filled {
   color: gold;
 }
 
-.star {
-  color: #ccc;
+.comments-section {
+  margin-top: 30px;
 }
 
-.comments-section {
-  margin-top: 20px;
+.comment-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 .comment {
   border: 1px solid #ddd;
-  background-color: #b2d5fa4b;
+  background-color: #f9f9f9;
   border-radius: 7px;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.add-comment input, .add-comment select, .add-comment textarea {
+.add-comment-section {
+  margin-top: 20px;
+}
+
+.add-comment .star-rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.add-comment .star {
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
+  transition: color 0.3s;
+}
+
+.add-comment .star.filled {
+  color: gold;
+}
+
+.add-comment textarea {
   display: block;
   width: 100%;
   margin-bottom: 10px;
@@ -64,8 +120,16 @@
 .add-comment button {
   padding: 10px 20px;
   border: none;
-  background: #007bff;
+  background-color: #9f14c2a4;
+  border-color: #9f14c28c;
+  border-radius: 20px;
+  padding: 8px 15px;
   color: white;
-  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-comment button:hover {
+  background-color: #9f14c2;
+  border-color: #9f14c2fb;
 }

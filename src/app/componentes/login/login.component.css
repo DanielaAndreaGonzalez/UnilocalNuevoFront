@@ -1,1 +1,35 @@
 
+.login-panel {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 2rem;
+}
+
+input[type="email"], input[type="password"] {
+  border: 2px solid #dee2e6; /* A lighter grey border */
+  border-radius: 0.375rem; /* Rounded borders */
+  height: 40px; /* Standard height for better form control */
+}
+
+input[type="email"]:focus, input[type="password"]:focus {
+  border-color: #495057; /* Darker border color on focus */
+  box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.25); /* Bootstrap style focus shadow */
+}
+
+.btn-primary {
+  background-color: #6a11cb; /* Bootstrap primary color */
+  border: none; /* Remove default border */
+}
+
+.btn-primary:hover {
+  background-color: #6a11cb; /* A darker blue on hover */
+}
+
+.link-primary {
+  color: #6a11cb; /* Bootstrap primary color for links */
+}
+
+.link-primary:hover {
+  text-decoration: underline; /* Underline on hover for better interaction */
+}

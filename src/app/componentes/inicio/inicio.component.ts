@@ -3,6 +3,7 @@ import { MapaService } from '../../servicios/mapa.service';
 import { Router } from '@angular/router';
 import { NegociosService } from '../../servicios/negocios.service';
 import { ItemNegocioDTO } from '../../dto/ItemNegocioDTO';
+import { PublicoService } from '../../servicios/publico.service';
 
 
 @Component({
@@ -15,15 +16,15 @@ import { ItemNegocioDTO } from '../../dto/ItemNegocioDTO';
 export class InicioComponent {
   negocios: ItemNegocioDTO[];
 
-  constructor(private mapaService: MapaService,private router: Router,  private negociosService: NegociosService) {
+  constructor(private mapaService: MapaService,private router: Router,  private publicoService: PublicoService) {
     this.negocios =  [];
-    this.negociosService.obtenerNegocios().subscribe({
+    this.publicoService.obtenerNegocios().subscribe({
       next:(data) => {
         this.negocios = data.respuesta;
-        console.log("Negocios recomendados listados: ", data);
+        console.log("Negocios cercanos: ", data);
       },
       error: (error) => {
-        console.log("Error al cargar las ciudades");
+        console.log("Error al cargar los negocios cercanos");
       }
     });
   }

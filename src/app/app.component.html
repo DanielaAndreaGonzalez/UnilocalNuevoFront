@@ -9,9 +9,9 @@
         </a>
       </div>
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a routerLink="" class="nav-link px-2 link-secondary">Inicio</a></li>
         @if (isLogged) {
           @if (isLoggedCliente) {
-            <li><a routerLink="" class="nav-link px-2 link-secondary">Inicio</a></li>
             <li><a routerLink="/lista-recomendados" class="nav-link px-2">Recomendados</a></li>
             <li><a routerLink="/lista-negocios" class="nav-link px-2">Mis negocios</a></li>
             <li><a routerLink="/lista-favoritos" class="nav-link px-2">Favoritos</a></li>
@@ -24,7 +24,7 @@
       <div class="col-md-3 text-end">
         @if (!isLogged) {
           <button type="button" routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
-          <button type="button" routerLink="/registro" class="btn btn-primary">Registro</button>
+          <button type="button" routerLink="/registro" class="btn btn-outline-primary">Registro</button>
         } @else {
           <label class="me-3">{{email}}</label>
           <button type="button" (click)="logout()" class="btn btn-link">Logout</button>
@@ -37,14 +37,14 @@
 
 
 <div class="container-fluid">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>
 
-<div class="container">
+<div class="container-fluid footer">
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4
     border-top">
     <div class="col-md-4 d-flex align-items-center">
-      <span class="mb-3 mb-md-0 text-body-secondary">{{footer}}</span>
+      <span class="mb-3 mb-md-0 text-body-secondary text-white ">{{footer}}</span>
     </div>
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
       <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fa-brands fa-x-twitter

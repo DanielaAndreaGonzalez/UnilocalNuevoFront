@@ -1,13 +1,53 @@
 .card {
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+    box-shadow: 0 0 10px rgba(131, 35, 160, 0.1);
+
     .card-header {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
     }
-  
+
     .card-body {
       padding: 30px;
     }
+  }
+
+  .btn-primary {
+    background-color: #9f14c2a4;
+    border-color: #9f14c28c;
+    border-radius: 20px;
+    padding: 8px 15px;
+  }
+
+  .btn-primary:hover {
+    background-color: #9f14c2;
+    border-color: #9f14c2fb;
+  }
+
+  .btn-unfavorite {
+    background-color: #492797;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-unfavorite:hover {
+    background-color: #27105c;
+  }
+
+  .btn-unfavorite i {
+    margin-right: 8px;
+  }
+
+  .btn-unfavorite:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.5);
+  }
+  .fa-heart{
+    color: #9f14c2;
   }

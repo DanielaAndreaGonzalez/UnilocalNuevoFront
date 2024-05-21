@@ -1,8 +1,4 @@
 /* negocios.component.css */
-.container {
-    max-width: 800px;
-  }
-
   .table {
     width: 100%;
   }
@@ -22,4 +18,27 @@
 
   .text-danger {
     color: black;
+  }
+
+
+  .btn-primary {
+    background-color: #9f14c2a2;
+    border-color: #9f14c28c;
+    border-radius: 20px;
+    padding: 8px 15px;
+  }
+
+  .btn-primary:hover {
+    background-color: #9f14c2;
+    border-color: #9f14c2fb;
+  }
+
+  .btn-success{
+    border-radius: 20px;
+    padding: 8px 15px;
+  }
+
+  .btn-danger{
+    border-radius: 20px;
+    padding: 8px 15px;
   }

@@ -19,4 +19,10 @@ export class PublicoService {
   public listarTiposNegocio(): Observable<MensajeDTO> {
      return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-tipos-negocio`);
   }
+
+
+  public obtenerNegocios(): Observable<MensajeDTO> {
+    console.log('Incia solicitud negocios cercanos..');
+    return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-negocios-cernanos`);
+  }
 }

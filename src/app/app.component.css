@@ -1,22 +1,23 @@
 /* Estilos para el Navbar con degradado, asegurando especificidad */
 .navbar-enhanced {
-  background: linear-gradient(to right, #710d8f 0%, #7c1696 100%);
+  background: linear-gradient(to right, #6a11cb, #bc4e9c);
   color: white;
 }
 
 .navbar-enhanced .nav-link {
   color: white !important;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.5s, color 0.3s;
+  border-radius: 5px;
 }
 
 .navbar-enhanced .nav-link:hover, .navbar-enhanced .nav-link:focus {
-  color: #cff4fc !important;
+  color: white !important;
   background-color: rgba(255, 255, 255, 0.2);
 }
 
 .navbar-enhanced .btn-outline-primary {
-  border-color: #cff4fc;
-  color: #cff4fc;
+  border-color: white;
+  color:white;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -52,5 +53,27 @@ button, span{
   justify-content: center;
   padding-top: 10px;
   padding-left: 5px;
+}
+
+html, body {
+  height: 100%; /* Esencial para que el footer pueda posicionarse en la parte inferior */
+  margin: 0;   /* Remueve el margen por defecto */
+}
+
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to right, #6a11cb, #b92b27);
+  color: white;
+}
+
+.text-body-secondary {
+  color: white !important;
+}
+
+.fa-twitter, .fa-instagram, .fa-facebook {
+  color: white;
 }
 

@@ -10,29 +10,36 @@ import { ClienteService } from '../../servicios/cliente.service';
 import { RegistroComentarioDTO } from '../../dto/RegistroComentarioDTO';
 import { DetalleClienteDTO } from '../../dto/DetalleClienteDTO';
 import { NegocioFavoritoDTO } from '../../dto/NegocioFavoritoDTO';
+import { AlertaComponent } from '../alerta/alerta.component';
+import { Alerta } from '../../dto/alerta';
 
 @Component({
   selector: 'app-informacion-negocio',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AlertaComponent],
   templateUrl: './informacion-negocio.component.html',
   styleUrls: ['./informacion-negocio.component.css']
 })
 export class InformacionNegocioComponent implements OnInit {
+  alerta!:Alerta;
+  alertFavorito!:Alerta;
   codigoNegocio: string;
-  isFavorito:boolean= false;
-  propietarioNegocio : DetalleClienteDTO;
-  newComment!:RegistroComentarioDTO;
+  isFavorito: boolean = false;
+  propietarioNegocio: DetalleClienteDTO;
+  newComment: RegistroComentarioDTO;
 
   negocio!: NegocioDTO;
   calificacionPromedio: number = 0;
 
-  constructor(private route: ActivatedRoute, private negociosService: NegociosService, private tokenService:TokenService,
-    private clienteService:ClienteService
+  constructor(
+    private route: ActivatedRoute,
+    private negociosService: NegociosService,
+    private tokenService: TokenService,
+    private clienteService: ClienteService
   ) {
     this.codigoNegocio = '';
-    this.newComment = new RegistroComentarioDTO('','','',new Date,0);
-    this.propietarioNegocio = new DetalleClienteDTO('','','', '', '', '');
+    this.newComment = new RegistroComentarioDTO('', '', '', new Date(), 0);
+    this.propietarioNegocio = new DetalleClienteDTO('', '', '', '', '', '');
   }
 
   ngOnInit() {
@@ -48,7 +55,7 @@ export class InformacionNegocioComponent implements OnInit {
         this.codigoNegocio = codigo;
       }
     });
-    console.log("Codigo negocio recuperado de la URL: ",this.codigoNegocio);
+    console.log("Codigo negocio recuperado de la URL: ", this.codigoNegocio);
     this.getInfoNegocio(this.codigoNegocio);
     this.getCalificacionPromedio(this.codigoNegocio);
   }
@@ -57,33 +64,43 @@ export class InformacionNegocioComponent implements OnInit {
     this.newComment.codigoCliente = this.tokenService.getId();
     this.newComment.codigoNegocio = this.codigoNegocio;
     if (this.newComment.codigoCliente && this.newComment.calificacion && this.newComment.mensaje) {
-      console.log("Cometario a crear: ",this.newComment);
+      console.log("Cometario a crear: ", this.newComment);
       this.clienteService.crearComentario(this.newComment).subscribe({
         next: (data) => {
-          console.log("Comentario registrado");
+          this.alerta = new Alerta('Comentario agregado con exito!', 'success');
+          this.newComment = new RegistroComentarioDTO('', '', '', new Date(), 0); // Resetear comentario
+          this.getInfoNegocio(this.codigoNegocio);
         },
         error: (error) => {
-          console.log("Error al registrar el comentario");
+          if (error.status === 400) {
+            this.alerta = new Alerta('Error de conexión', 'danger');
+          } else {
+            if (error.error && error.error.respuesta) {
+              this.alerta = new Alerta(error.error.respuesta, 'danger');
+            } else {
+              this.alerta = new Alerta('Se produjo un error, por favor verifica tus datos o intenta más tarde.', 'danger');
+            }
+          }
         }
       });
     }
   }
 
-  getInfoNegocio(codigoNegocio : string ){
-      this.negociosService.obtener(codigoNegocio).subscribe({
-        next:(data) => {
-          this.negocio = data.respuesta;
-          this.getInfoPropietarioNegocio(this.negocio.codigoCliente);
-        },
-        error: (error) => {
-          console.log("Error al cargar el negocio ");
-        }
-      })
+  getInfoNegocio(codigoNegocio: string) {
+    this.negociosService.obtener(codigoNegocio).subscribe({
+      next: (data) => {
+        this.negocio = data.respuesta;
+        this.getInfoPropietarioNegocio(this.negocio.codigoCliente);
+      },
+      error: (error) => {
+        console.log("Error al cargar el negocio ");
+      }
+    })
   }
 
-  getCalificacionPromedio(codigoNegocio: string){
+  getCalificacionPromedio(codigoNegocio: string) {
     this.negociosService.obtenerCalificacionPromedio(codigoNegocio).subscribe({
-      next:(data) => {
+      next: (data) => {
         this.calificacionPromedio = data.respuesta;
       },
       error: (error) => {
@@ -92,9 +109,9 @@ export class InformacionNegocioComponent implements OnInit {
     })
   }
 
-  getInfoPropietarioNegocio(codigoPropietario: string){
+  getInfoPropietarioNegocio(codigoPropietario: string) {
     this.clienteService.obtener(codigoPropietario).subscribe({
-      next:(data) => {
+      next: (data) => {
         this.propietarioNegocio = data.respuesta;
       },
       error: (error) => {
@@ -103,31 +120,49 @@ export class InformacionNegocioComponent implements OnInit {
     })
   }
 
-  agregarFavorito(option:boolean){
-    if(option){
-      const negocioFavoritoDTO:NegocioFavoritoDTO = new NegocioFavoritoDTO(this.tokenService.getId(),
-      this.negocio.codigo);
+  agregarFavorito(option: boolean) {
+    if (option) {
+      const negocioFavoritoDTO: NegocioFavoritoDTO = new NegocioFavoritoDTO(this.tokenService.getId(), this.negocio.codigo);
       this.clienteService.agregarFavoritos(negocioFavoritoDTO).subscribe({
         next: (data) => {
-          console.log("Agregado a favorito.. correctamente");
           this.isFavorito = true;
+          this.alertFavorito = new Alerta('Agregado a favorito existoramente!', 'success');
         },
         error: (error) => {
-          console.log("Error al registrar el favorito");
+          if (error.status === 400) {
+            this.alertFavorito = new Alerta('Error de conexión', 'danger');
+          } else {
+            if (error.error && error.error.respuesta) {
+              this.alertFavorito = new Alerta(error.error.respuesta, 'danger');
+            } else {
+              this.alertFavorito = new Alerta('Se produjo un error, por favor verifica tus datos o intenta más tarde.', 'danger');
+            }
+          }
         }
       });
-    }else{
-      const negocioFavoritoDTO:NegocioFavoritoDTO = new NegocioFavoritoDTO(this.tokenService.getId(),
-          this.negocio.codigo);
-        this.clienteService.quitarFavoritos(negocioFavoritoDTO).subscribe({
-          next: (data) => {
-            console.log("Sequitó como favorito.. correctamente");
-            this.isFavorito = false;
-          },
-          error: (error) => {
-            console.log("Error al registrar el favorito");
+    } else {
+      const negocioFavoritoDTO: NegocioFavoritoDTO = new NegocioFavoritoDTO(this.tokenService.getId(), this.negocio.codigo);
+      this.clienteService.quitarFavoritos(negocioFavoritoDTO).subscribe({
+        next: (data) => {
+          this.alertFavorito = new Alerta('Se ha retirado como favorito!', 'success');
+          this.isFavorito = false;
+        },
+        error: (error) => {
+          if (error.status === 400) {
+            this.alertFavorito = new Alerta('Error de conexión', 'danger');
+          } else {
+            if (error.error && error.error.respuesta) {
+              this.alertFavorito = new Alerta(error.error.respuesta, 'danger');
+            } else {
+              this.alertFavorito = new Alerta('Se produjo un error, por favor verifica tus datos o intenta más tarde.', 'danger');
+            }
           }
-        });
+        }
+      });
     }
+  }
+
+  rate(star: number) {
+    this.newComment.calificacion = star;
   }
 }

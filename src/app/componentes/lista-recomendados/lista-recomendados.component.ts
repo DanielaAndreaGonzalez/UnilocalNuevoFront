@@ -5,15 +5,18 @@ import { Router } from '@angular/router';
 import { NegociosService } from '../../servicios/negocios.service';
 import { TokenService } from '../../servicios/token.service';
 import { NegocioDTO } from '../../dto/NegocioDTO';
+import { AlertaComponent } from '../alerta/alerta.component';
+import { Alerta } from '../../dto/alerta';
 
 @Component({
   selector: 'app-recomendados',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AlertaComponent],
   templateUrl: './lista-recomendados.component.html',
   styleUrls: ['./lista-recomendados.component.scss']
 })
 export class ListaRecomendadosComponent {
+  alerta!:Alerta;
   negocios: NegocioDTO[] = [];
 
   constructor(private router: Router, private negociosService:NegociosService, private tokenService:TokenService)
@@ -24,7 +27,15 @@ export class ListaRecomendadosComponent {
         console.log("Negocios recomendados listados: ", data);
       },
       error: (error) => {
-        console.log("Error al cargar las ciudades");
+        if (error.status === 400) {
+          this.alerta = new Alerta('Error de conexión', 'danger');
+        } else {
+          if (error.error && error.error.respuesta) {
+            this.alerta = new Alerta(error.error.respuesta, 'danger');
+          } else {
+            this.alerta = new Alerta('Se produjo un error, por favor verifica tus datos o intenta más tarde.', 'danger');
+          }
+        }
       }
     })
   }

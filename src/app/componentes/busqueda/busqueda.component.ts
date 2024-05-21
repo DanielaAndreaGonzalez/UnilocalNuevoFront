@@ -3,17 +3,19 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemNegocioDTO } from '../../dto/ItemNegocioDTO';
 import { NegociosService } from '../../servicios/negocios.service';
 import { MapaService } from '../../servicios/mapa.service';
+import { Alerta } from '../../dto/alerta';
+import { AlertaComponent } from '../alerta/alerta.component';
 
 
 @Component({
   selector: 'app-busqueda',
   standalone: true,
-  imports: [],
+  imports: [AlertaComponent],
   templateUrl: './busqueda.component.html',
   styleUrl: './busqueda.component.css'
 })
 export class BusquedaComponent {
-
+  alerta!:Alerta;
   textoBusqueda: string;
   resultados: ItemNegocioDTO[];
 
@@ -30,7 +32,15 @@ export class BusquedaComponent {
           console.log("Negocios recomendados listados: ", data);
         },
         error: (error) => {
-          console.log("Error al cargar las ciudades");
+          if (error.status === 400) {
+            this.alerta = new Alerta('Error de conexión', 'danger');
+          } else {
+            if (error.error && error.error.respuesta) {
+              this.alerta = new Alerta(error.error.respuesta, 'warning');
+            } else {
+              this.alerta = new Alerta('Se produjo un error, por favor verifica lo datos de busqueda o intenta más tarde.', 'danger');
+            }
+          }
         }
       });
     });

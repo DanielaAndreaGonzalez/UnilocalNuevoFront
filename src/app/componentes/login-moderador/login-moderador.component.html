@@ -3,6 +3,7 @@
     <div class="col-md-6">
       <div class="card shadow-lg">
         <div class="card-body">
+          <app-alerta [alerta]="alerta"></app-alerta>
           <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="mb-3">
               <label for="correo" class="form-label">Email</label>

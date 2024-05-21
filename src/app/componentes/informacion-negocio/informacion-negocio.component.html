@@ -1,49 +1,76 @@
-<div class="business-details">
-  <h1>{{ negocio.nombre }}  <span class="star-no-favorite" [ngClass]="{'star-favorite':isFavorito}" (click)="agregarFavorito(!isFavorito)">&#9733;</span> </h1>
-  <p>{{ negocio.descripcion }}</p>
-  <p><strong>Propietario:</strong> {{ propietarioNegocio.nombre }}</p>
-  <div>
-    <div id="businessImagesCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div *ngFor="let image of negocio.imagenes; let i = index"
-          [ngClass]="{'carousel-item': true, 'active': i === 0}">
-          <img [src]="image" class="d-block w-100 h-40" alt="Business Image">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#businessImagesCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#businessImagesCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-  </div>
-  <div class="business-rating mt-3">
-    <p>Calificación Promedio Negocio: {{ calificacionPromedio }} <span *ngFor="let star of [1,2,3,4,5]; let i = index"
-        class="star" [ngClass]="{'filled': i < calificacionPromedio}">&#9733;</span></p>
-  </div>
-  <div class="comments-section">
-    <h4>Comentarios</h4>
-    <div *ngFor="let comment of negocio.comentarios" class="comment">
-      <p><strong>{{ comment.calificacion }}</strong> - <span *ngFor="let star of [1,2,3,4,5]; let i = index"
-          class="star" [ngClass]="{'filled': i < comment.calificacion}">&#9733;</span></p>
-      <p>{{ comment.mensaje }}</p>
-      @if (comment.respuesta) {
-      <p>Respuesta: {{ comment.respuesta }}</p>
-      }
+<div class="container mt-3">
+  <div class="business-details">
+    <div class="header-section">
+      <app-alerta [alerta]="alertFavorito"></app-alerta>
+      <h1>
+        {{ negocio.nombre }}
+        <span class="star-no-favorite" [ngClass]="{'star-favorite':isFavorito}" (click)="agregarFavorito(!isFavorito)">
+          &#9733;
+        </span>
+      </h1>
+      <p>{{ negocio.descripcion }}</p>
+      <p><strong>Propietario:</strong> {{ propietarioNegocio.nombre }}</p>
     </div>
 
-    <div class="mt-5">
-      <hr>
-      <h4>Agregar Comentario</h4>
-      <div class="add-comment">
-        <select [(ngModel)]="newComment.calificacion">
-          <option *ngFor="let star of [1,2,3,4,5]" [value]="star">{{ star }} &#9733;</option>
-        </select>
-        <textarea [(ngModel)]="newComment.mensaje" placeholder="Tu comentario"></textarea>
-        <button (click)="addComment()">Enviar</button>
+    <div class="carousel-section">
+      <div id="businessImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div *ngFor="let image of negocio.imagenes; let i = index"
+            [ngClass]="{'carousel-item': true, 'active': i === 0}">
+            <img [src]="image" class="d-block w-100" alt="Business Image">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#businessImagesCarousel"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#businessImagesCarousel"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="business-rating">
+      <p>Calificación Promedio Negocio: {{ calificacionPromedio }}
+        <span *ngFor="let star of [1,2,3,4,5]; let i = index" class="star"
+          [ngClass]="{'filled': i < calificacionPromedio}">
+          &#9733;
+        </span>
+      </p>
+    </div>
+
+    <div class="comments-section">
+      <h4>Comentarios</h4>
+      <div class="comment-list">
+        <div *ngFor="let comment of negocio.comentarios" class="comment">
+          <p><strong>{{ comment.calificacion }}</strong> -
+            <span *ngFor="let star of [1,2,3,4,5]; let i = index" class="star"
+              [ngClass]="{'filled': i < comment.calificacion}">
+              &#9733;
+            </span>
+          </p>
+          <p>{{ comment.mensaje }}</p>
+          <p *ngIf="comment.respuesta"><strong>Respuesta:</strong> {{ comment.respuesta }}</p>
+        </div>
+      </div>
+
+      <div class="add-comment-section mt-5">
+        <hr>
+        <h4>Agregar Comentario</h4>
+        <app-alerta [alerta]="alerta"></app-alerta>
+        <div class="add-comment">
+          <div class="star-rating">
+            <span class="star" *ngFor="let star of [1,2,3,4,5]; let i = index" (click)="rate(star)"
+              [ngClass]="{'filled': star <= newComment.calificacion}">
+              &#9733;
+            </span>
+          </div>
+          <textarea [(ngModel)]="newComment.mensaje" placeholder="Tu comentario"></textarea>
+          <button (click)="addComment()"><i class="fa-solid fa-comment"></i> Comentar</button>
+        </div>
       </div>
     </div>
   </div>

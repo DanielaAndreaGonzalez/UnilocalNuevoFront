@@ -1,0 +1,14 @@
+input[type="file"] {
+  background: #f8f9fa;
+  border-radius: 0.375rem;
+}
+
+.btn-primary {
+  background-color: #6a11cb;
+  border-color: #6a11cb;
+}
+
+.btn-primary:hover {
+  background-color: #6a11cb;
+  border-color: #6a11cb;
+}

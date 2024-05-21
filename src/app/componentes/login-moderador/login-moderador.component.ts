@@ -12,11 +12,12 @@ import { AuthService } from '../../servicios/auth.service';
 import { Alerta } from '../../dto/alerta';
 import { LoginDTO } from '../../dto/LoginDTO';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { AlertaComponent } from '../alerta/alerta.component';
 
 @Component({
   selector: 'app-login-moderador',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule,RouterOutlet,RouterModule],
+  imports: [ReactiveFormsModule, CommonModule,RouterOutlet,RouterModule, AlertaComponent],
   templateUrl: './login-moderador.component.html',
   styleUrl: './login-moderador.component.css'
 })
@@ -46,10 +47,14 @@ export class LoginModeradorComponent {
         this.tokenService.login(data.respuesta.token);
       },
       error: (error) => {
-        if (error.status == 0) {
+        if (error.status === 400) {
           this.alerta = new Alerta('Error de conexión', 'danger');
         } else {
-          this.alerta = new Alerta(error.error.respuesta, 'danger');
+          if (error.error && error.error.respuesta) {
+            this.alerta = new Alerta(error.error.respuesta, 'danger');
+          } else {
+            this.alerta = new Alerta('Se produjo un error, por favor verifica tus datos o intenta más tarde.', 'danger');
+          }
         }
       },
     });

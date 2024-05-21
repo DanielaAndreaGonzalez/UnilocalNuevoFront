@@ -9,7 +9,7 @@ declare var mapboxgl: any;
 })
 export class MapaService {
   mapa: any;
-  style: string = 'mapbox://styles/mapbox/streets-v11';
+  style: string = 'mapbox://styles/mapbox/outdoors-v12';
   directions: any;
   marcadores: any[];
 
