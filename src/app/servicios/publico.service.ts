@@ -8,7 +8,7 @@ import { MensajeDTO } from '../dto/MensajeDTO';
 })
 export class PublicoService {
 
-  private publicoURL = "http://localhost:9090/api/publico";
+  private publicoURL = "http://localhost:8080/api/publico";
 
   constructor(private http: HttpClient) { }
 

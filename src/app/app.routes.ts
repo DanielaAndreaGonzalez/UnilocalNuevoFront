@@ -30,7 +30,7 @@ export const routes: Routes = [
     {path: 'login-moderador', component: LoginModeradorComponent,canActivate: [LoginGuard]},
     {path: 'registro', component: RegistroUsuarioComponent},
     {path: 'recuperar-cuenta', component: RecuperarCuentaComponent},
-    {path: 'cambiar-contrasena', component: CambiarContrasenaComponent},
+    {path: 'cambiar-contrasena/:token', component: CambiarContrasenaComponent},
     {path: 'editar-usuario', component: EditarUsuarioComponent},
     {path: 'lista-recomendados', component: ListaRecomendadosComponent},
     {path: 'informacion-negocio/:idNegocio', component: InformacionNegocioComponent},

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ComentarioService {
-  private negociosURL = "http://localhost:9090/api/comentario";
+  private negociosURL = "http://localhost:8080/api/comentario";
 
   constructor(private http: HttpClient) { }
 }

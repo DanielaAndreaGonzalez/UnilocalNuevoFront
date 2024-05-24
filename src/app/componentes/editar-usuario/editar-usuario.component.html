@@ -1,31 +1,32 @@
-<div class="container">
-    <h1 class="text-center">Editar cuenta usuario</h1>
-    <form>
-      <div class="form-group">
-        <label for="nombre">Nombre:</label>
-        <input type="text" class="form-control" id="nombre" [(ngModel)]="usuario.nombre" placeholder="Ingrese su nombre" required>
-      </div>
-      <div class="form-group">
-        <label for="correo">Correo electrónico:</label>
-        <input type="email" class="form-control" id="correo" [(ngModel)]="usuario.correo" placeholder="Ingrese el correo electrónico" required>
-      </div>
-      <div class="mb-3">
-        <label for="ciudadResidencia" class="form-label">Ciudad de Residencia:</label>
-        <select class="form-select " name="ciudadResidencia" required [(ngModel)]="usuario.ciudad" >
+<div class="container my-5">
+  <h1 class="text-center mb-4">Editar cuenta de usuario</h1>
+  <form>
+    <div class="form-group mb-3">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombre" [(ngModel)]="usuario.nombre" placeholder="Ingrese su nombre" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="correo">Correo electrónico:</label>
+      <input type="email" class="form-control" id="correo" [(ngModel)]="usuario.correo" placeholder="Ingrese el correo electrónico" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="ciudadResidencia">Ciudad de Residencia:</label>
+      <select class="form-select" id="ciudadResidencia" required [(ngModel)]="usuario.ciudad" >
         <option value="" selected>Seleccione una ciudad</option>
         @for (item of ciudades; track $index) { <option [value]="item">{{item}}</option>}
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="foto">Seleccionar foto de perfil:</label>
-        <div class="text-center">
-          <i class="fas fa-user-circle fa-5x"></i> <!-- Icono de fontawesome -->
-          <input type="file" id="foto" (change)="onFileSelected($event)"> <!-- Input para seleccionar archivo -->
-        </div>
-      </div>
+      </select>
+    </div>
+    <div class="form-group mb-4">
+      <label for="foto">Seleccionar foto de perfil:</label>
       <div class="text-center">
-        <button type="submit" class="btn btn-primary mr-2">Editar</button>
-        <button type="button" class="btn btn-danger">Eliminar</button>
+        <i class="fas fa-user-circle fa-5x mb-3"></i> <!-- Icono de FontAwesome -->
+        <input class="form-control" type="file" name="imagenes" (change)="onFileSelected($event)" multiple
+                required />
       </div>
-    </form>
-  </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary me-2">Editar</button>
+      <button type="button" class="btn btn-danger">Eliminar</button>
+    </div>
+  </form>
+</div>

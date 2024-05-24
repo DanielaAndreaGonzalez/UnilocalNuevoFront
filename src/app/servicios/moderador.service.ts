@@ -9,7 +9,7 @@ import { AutorizarNegocioDTO } from '../dto/AutorizarNegocioDTO';
 })
 export class ModeradorService {
 
-  private moderadorURL = "http://localhost:9090/api/moderador";
+  private moderadorURL = "http://localhost:8080/api/moderador";
   constructor(private http: HttpClient) { }
 
 

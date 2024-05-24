@@ -9,7 +9,7 @@ export class RegistroUsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  private url = 'http://localhost:9090/usuario';
+  private url = 'http://localhost:8080/usuario';
 
   registrarUsuario( usuario : RegistroUsuarioDTO) {
     this.http.post<any>(this.url+'/crear-usuario', usuario).subscribe(response => {

@@ -11,11 +11,12 @@ import { PublicoService } from '../../servicios/publico.service';
 import { ImagenService } from '../../servicios/imagen.service';
 import { Alerta } from '../../dto/alerta';
 import { TokenService } from '../../servicios/token.service';
+import { AlertaComponent } from '../alerta/alerta.component';
 
 @Component({
   selector: 'app-crear-negocio',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule, AlertaComponent],
   templateUrl: './crear-negocio.component.html',
   styleUrl: './crear-negocio.component.css'
 })
@@ -28,6 +29,7 @@ export class CrearNegocioComponent {
   dias:string[];
   tiposNegocio : string[];
   alerta!:Alerta;
+  alertaNegocio!:Alerta;
   imagenSubidas:string[];
 
   constructor(private negociosService: NegociosService, private mapaService: MapaService, private publicoService: PublicoService
@@ -43,12 +45,12 @@ export class CrearNegocioComponent {
   }
 
   ngOnInit(): void {
-    this.mapaService.crearMapa([-75.671289, 4.537435], 12);
-
-    this.mapaService.agregarMarcador().subscribe((marcador) => {
-    this.registroNegocioDTO.ubicacion.latitud = marcador.lat;
-    this.registroNegocioDTO.ubicacion.longitud = marcador.lng;
-    console.log(this.registroNegocioDTO);
+    this.mapaService.crearMapa([-75.671289, 4.537435], 12).subscribe(() => {      
+      this.mapaService.agregarMarcador().subscribe((marcador) => {
+        this.registroNegocioDTO.ubicacion.latitud = marcador.lat;
+        this.registroNegocioDTO.ubicacion.longitud = marcador.lng;
+        console.log(this.registroNegocioDTO);
+      });
     });
   }
 
@@ -78,10 +80,20 @@ export class CrearNegocioComponent {
       this.registroNegocioDTO.imagenes = this.imagenSubidas;
       this.negociosService.crear(this.registroNegocioDTO).subscribe({
         next: (data) => {
+          this.alertaNegocio = new Alerta("Negocio creado correctamente", "success");
           console.log("Negocio registrado");
+          this.registroNegocioDTO =  new RegistroNegocioDTO();
         },
         error: (error) => {
-          console.log("Error al registrar el negocio");
+          if (error.status === 400) {
+            this.alerta = new Alerta('Error de conexión', 'danger');
+          } else {
+            if (error.error && error.error.respuesta) {
+              this.alerta = new Alerta(error.error.respuesta, 'danger');
+            } else {
+              this.alerta = new Alerta('Se produjo un error, por favor verifica tus datos o intenta más tarde.', 'danger');
+            }
+          }
         }
       });
       console.log(this.registroNegocioDTO);
@@ -106,6 +118,7 @@ export class CrearNegocioComponent {
   }
 
   public subirImagen() {
+    console.log('Ingresa a subir imagen');
     if (this.archivos != null && this.archivos.length > 0) {
       const formData = new FormData();
       formData.append('file', this.archivos[0]);
@@ -113,10 +126,18 @@ export class CrearNegocioComponent {
         next: data => {
           //this.usuario.fotoPerfil = data.respuesta.url;
           this.imagenSubidas.push(data.respuesta.url);
-          this.alerta = new Alerta("Se ha subido la foto", "success");
+          this.alerta = new Alerta("Se ha subido la imagen", "success");
         },
         error: error => {
-          this.alerta = new Alerta(error.error, "danger");
+          if (error.status === 400) {
+            this.alerta = new Alerta('Error de conexión', 'danger');
+          } else {
+            if (error.error && error.error.respuesta) {
+              this.alerta = new Alerta(error.error.respuesta, 'danger');
+            } else {
+              this.alerta = new Alerta('Se produjo un error, por favor verifica tus datos o intenta más tarde.', 'danger');
+            }
+          }
         }
       });
     }

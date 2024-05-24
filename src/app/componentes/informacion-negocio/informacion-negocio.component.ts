@@ -126,7 +126,7 @@ export class InformacionNegocioComponent implements OnInit {
       this.clienteService.agregarFavoritos(negocioFavoritoDTO).subscribe({
         next: (data) => {
           this.isFavorito = true;
-          this.alertFavorito = new Alerta('Agregado a favorito existoramente!', 'success');
+          this.alertFavorito = new Alerta('Agregado a favorito exitosamente!', 'success');
         },
         error: (error) => {
           if (error.status === 400) {

@@ -1,21 +1,29 @@
 .container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile-picture {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 20px;
-  }
-  
-  @media (max-width: 576px) {
-    .container {
-      padding: 10px;
-    }
-  }
+  max-width: 600px; /* Limit the width of the form container for better aesthetics */
+  background-color: #f8f9fa; /* Soft background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+.btn-primary {
+  background-color: #4a00e0; /* Use a vibrant color for primary actions */
+  border-color: #4a00e0;
+}
+
+.btn-primary:hover {
+  background-color: #3700b3; /* Darker shade on hover */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Danger color for 'delete' actions */
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Darker shade on hover */
+}
+
+.fa-user-circle {
+  color: #6c757d; /* Soft icon color */
+}

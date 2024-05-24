@@ -27,6 +27,7 @@
         </div>
       </div>
       <div class="mb-3 row border p-2">
+        <app-alerta [alerta]="alerta"></app-alerta>
         <label class="col-sm-2 col-form-label">Imágenes: </label>
         <div class="col-sm-8">
           <input class="form-control" type="file" name="imagenes" (change)="onFileChange($event)" multiple
@@ -107,6 +108,7 @@
       <button class="btn btn-primary" (click)="crearNegocio()" [disabled]="f.invalid">
         <i class="fa-solid fa-circle-plus me-1"></i>Crear negocio
       </button>
+      <app-alerta [alerta]="alertaNegocio"></app-alerta>
     </form>
   </div>
 </div>

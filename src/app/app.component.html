@@ -27,6 +27,7 @@
           <button type="button" routerLink="/registro" class="btn btn-outline-primary">Registro</button>
         } @else {
           <label class="me-3">{{email}}</label>
+          <button type="button" routerLink="/editar-usuario" class="btn btn-link me-2">Editar Perfil</button>
           <button type="button" (click)="logout()" class="btn btn-link">Logout</button>
         }
       </div>

@@ -12,8 +12,8 @@ import { ActualizacionNegocioDTO } from '../dto/ActualizacionNegocioDTO';
 })
 export class NegociosService {
 
-  private negociosURL = "http://localhost:9090/api/negocio";
-  private clienteURL = "http://localhost:9090/api/clientes";
+  private negociosURL = "http://localhost:8080/api/negocio";
+  private clienteURL = "http://localhost:8080/api/clientes";
 
 
 

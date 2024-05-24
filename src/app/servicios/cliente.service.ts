@@ -10,7 +10,7 @@ import { NegocioFavoritoDTO } from '../dto/NegocioFavoritoDTO';
   providedIn: 'root'
 })
 export class ClienteService {
-  private clienteURL = "http://localhost:9090/api/clientes";
+  private clienteURL = "http://localhost:8080/api/clientes";
   constructor(private http: HttpClient) { }
 
   public crearComentario(nuevoComentario: RegistroComentarioDTO): Observable<MensajeDTO> {
@@ -32,5 +32,5 @@ export class ClienteService {
 
   public listarNegociosFavoritos(codigoCliente: string): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.clienteURL}/listar-negocios-favoritos/${codigoCliente}`);
-  }
+  }  
 }
