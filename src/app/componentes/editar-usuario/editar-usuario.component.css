@@ -7,12 +7,19 @@
 }
 
 .btn-primary {
-  background-color: #4a00e0; /* Use a vibrant color for primary actions */
-  border-color: #4a00e0;
+  background-color: #6a11cb; /* Use a vibrant color for primary actions */
+  border-color: #6a11cb;
+  border-radius: 20px;
+  padding: 8px 15px;
+}
+
+.btn-success{
+  border-radius: 20px;
+  padding: 8px 15px;
 }
 
 .btn-primary:hover {
-  background-color: #3700b3; /* Darker shade on hover */
+  background-color: #6a11cb; /* Darker shade on hover */
 }
 
 .btn-danger {

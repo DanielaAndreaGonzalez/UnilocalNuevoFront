@@ -1,17 +1,22 @@
 <div class="container my-5">
   <h1 class="text-center mb-4">Editar cuenta de usuario</h1>
+  <app-alerta [alerta]="alerta"></app-alerta>
   <form>
     <div class="form-group mb-3">
       <label for="nombre">Nombre:</label>
-      <input type="text" class="form-control" id="nombre" [(ngModel)]="usuario.nombre" placeholder="Ingrese su nombre" required>
+      <input type="text" class="form-control" name="nombre" id="nombre" [(ngModel)]="usuario.nombre" placeholder="Ingrese su nombre" required>
+    </div>
+    <div class="form-group mb-3">
+      <label for="nickname">Nick Name:</label>
+      <input type="text" class="form-control" name="nickname" id="nickname" [(ngModel)]="usuario.nickname" placeholder="Ingrese nickname" required>
     </div>
     <div class="form-group mb-3">
       <label for="correo">Correo electrónico:</label>
-      <input type="email" class="form-control" id="correo" [(ngModel)]="usuario.correo" placeholder="Ingrese el correo electrónico" required>
+      <input type="email" class="form-control" name="correo" id="correo" [(ngModel)]="usuario.email" placeholder="Ingrese el correo electrónico" required>
     </div>
     <div class="form-group mb-3">
       <label for="ciudadResidencia">Ciudad de Residencia:</label>
-      <select class="form-select" id="ciudadResidencia" required [(ngModel)]="usuario.ciudad" >
+      <select class="form-select" id="ciudadResidencia" name="ciudadResidencia" required [(ngModel)]="usuario.ciudadResidencia" >
         <option value="" selected>Seleccione una ciudad</option>
         @for (item of ciudades; track $index) { <option [value]="item">{{item}}</option>}
       </select>
@@ -19,14 +24,22 @@
     <div class="form-group mb-4">
       <label for="foto">Seleccionar foto de perfil:</label>
       <div class="text-center">
-        <i class="fas fa-user-circle fa-5x mb-3"></i> <!-- Icono de FontAwesome -->
+        <div class="contenedor-imagen">
+          <img src="{{usuario.fotoPerfil}}" alt="{{ usuario.nombre }}" class="img-thumbnail" style="max-width: 100px;">
+          <button type="button" class="btn btn-outline-danger btn-sm ms-1" (click)="eliminarImagen(usuario.fotoPerfil)"><i class="fas fa-trash"></i></button>
+        </div>
         <input class="form-control" type="file" name="imagenes" (change)="onFileSelected($event)" multiple
                 required />
       </div>
+      <div class="col-sm-2">
+        <button type="submit" [disabled]="this.selectedImage == null" class="btn btn-outline-success btn-sm"
+        (click)="subirImagen()">
+        <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir</button>
+      </div>
     </div>
     <div class="text-center">
-      <button type="submit" class="btn btn-primary me-2">Editar</button>
-      <button type="button" class="btn btn-danger">Eliminar</button>
+      <button type="submit" class="btn btn-success me-2" (click)="editarUsuaurio()"><i class="fa-solid fa-floppy-disk me-1"></i>Editar</button>
+      <!--<button type="button" class="btn btn-danger">Eliminar</button>-->
     </div>
   </form>
 </div>

@@ -15,3 +15,19 @@
   align-items: start;
   margin: 10px;
 }
+
+.btn-primary {
+  background-color: #6a11cb; /* Use a vibrant color for primary actions */
+  border-color: #6a11cb;
+  border-radius: 20px;
+  padding: 8px 15px;
+}
+
+.btn-success{
+  border-radius: 20px;
+  padding: 8px 15px;
+}
+
+.btn-primary:hover {
+  background-color: #6a11cb; /* Darker shade on hover */
+}

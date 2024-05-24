@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { MensajeDTO } from '../dto/MensajeDTO';
 import { RegistroComentarioDTO } from '../dto/RegistroComentarioDTO';
 import { NegocioFavoritoDTO } from '../dto/NegocioFavoritoDTO';
+import { ActualizarClienteDTO } from '../dto/ActualizarClienteDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,10 @@ export class ClienteService {
 
   public listarNegociosFavoritos(codigoCliente: string): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.clienteURL}/listar-negocios-favoritos/${codigoCliente}`);
-  }  
+  }
+
+
+  public actualizar(actualizarClienteDTO: ActualizarClienteDTO): Observable<MensajeDTO> {
+    return this.http.put<MensajeDTO>(`${this.clienteURL}/editar-perfil`, actualizarClienteDTO);
+  }
 }

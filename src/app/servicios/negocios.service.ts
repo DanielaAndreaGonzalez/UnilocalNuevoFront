@@ -44,6 +44,7 @@ export class NegociosService {
   }
 
   public obtenerNegocioPorNombre(nombreNegocio: string): Observable<MensajeDTO> {
+    console.log('buscar por nombre');
     return this.http.get<MensajeDTO>(`${this.negociosURL}/obtener-por-nombre/${nombreNegocio}`);
   }
 

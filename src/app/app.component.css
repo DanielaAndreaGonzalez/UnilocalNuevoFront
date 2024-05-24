@@ -61,10 +61,6 @@ html, body {
 }
 
 .footer {
-  position: relative;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   background: linear-gradient(to right, #6a11cb, #b92b27);
   color: white;
 }
@@ -75,5 +71,9 @@ html, body {
 
 .fa-twitter, .fa-instagram, .fa-facebook {
   color: white;
+}
+
+body {
+  padding-bottom: 60px; /* Altura del footer */
 }
 
